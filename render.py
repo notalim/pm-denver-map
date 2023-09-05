@@ -71,8 +71,11 @@ choro = folium.Choropleth(
     fill_color='YlOrRd',
     fill_opacity=0.7,
     line_opacity=0.2,
-    legend_name='Full-Service Grocery Stores per square km',
     highlight=True,
+)
+
+choro_children.geojson.add_child(
+    folium.features.GeoJsonTooltip(fields=['name', 'zipcode', 'Full-Service Grocery Stores per square km'])
 )
 
 legend_html = """
@@ -86,11 +89,6 @@ legend_html = """
 </div>
 """
 m.get_root().html.add_child(folium.Element(legend_html))
-
-
-choro.geojson.add_child(
-    folium.features.GeoJsonTooltip(fields=['name', 'zipcode'])
-)
 
 # Add the choropleth layer to the map
 choro.add_to(m)
